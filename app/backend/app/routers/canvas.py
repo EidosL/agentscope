@@ -27,7 +27,7 @@ async def submit_canvas(
 ) -> CanvasSubmitResponse:
     settings = get_settings()
 
-    candidate = await run_relation_factory(session, request)
+    candidate, debug_payload = await run_relation_factory(session, request, debug=request.debug)
 
     if candidate is None:
         raise HTTPException(status_code=409, detail="Candidate blocked by blacklist")
@@ -40,4 +40,5 @@ async def submit_canvas(
         guidance=None,
         budget_used=budget_used,
         degraded=False,
+        debug=debug_payload if request.debug else None,
     )

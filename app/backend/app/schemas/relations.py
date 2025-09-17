@@ -1,5 +1,5 @@
 ﻿from datetime import datetime
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -10,6 +10,7 @@ class CanvasSubmitRequest(BaseModel):
     predicate: Optional[str] = Field(default="supports")
     as_of: Optional[datetime] = None
     budget_cents: Optional[int] = None
+    debug: bool = False
 
 
 class EvidenceSnippet(BaseModel):
@@ -41,6 +42,7 @@ class CanvasSubmitResponse(BaseModel):
     guidance: Optional[str] = None
     budget_used: int = 0
     degraded: bool = False
+    debug: Optional[dict[str, Any]] = None
 
 
 class SuggestResponse(BaseModel):
